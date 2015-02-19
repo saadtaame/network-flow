@@ -62,7 +62,7 @@ class FlowNetwork
     }
 
     /* add directed edge (x,y) with capacity w */
-    void add(int x, int y, int w)
+    void add(int x, int y, long long w)
     {   add_aux(x, y, w);
         add_aux(y, x, 0);
         int i = id-1;
