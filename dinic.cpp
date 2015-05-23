@@ -6,8 +6,10 @@
 using namespace std;
 const long long INF = (1ll << 60);
 
+#define sym(e) (((e) & 1) ? (e)-1 : (e)+1)
+
 class FlowNetwork
-{   vector<int> last, to, prev, sym;
+{   vector<int> last, to, prev;
     vector<long long> c, f;
     int n, m, id;
 
@@ -29,7 +31,7 @@ class FlowNetwork
             if(level[y] == 1 + level[x] && c[i] > f[i])
             {   long long a = dfs(y, t, level, min(c[i]-f[i], need - can));
                 f[i] += a;
-                f[sym[i]] -= a;
+                f[sym(i)] -= a;
                 can += a;
             }
         }
@@ -44,7 +46,6 @@ class FlowNetwork
         last.resize(n);
         to.resize(m);
         prev.resize(m);
-        sym.resize(m);
         c.resize(m);
         f.resize(m);
 
@@ -65,9 +66,6 @@ class FlowNetwork
     void add(int x, int y, long long w)
     {   add_aux(x, y, w);
         add_aux(y, x, 0);
-        int i = id-1;
-        sym[i] = i-1;
-        sym[i-1] = i;
     }
 
     /* compute maximum flow */
