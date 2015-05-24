@@ -6,8 +6,6 @@
 using namespace std;
 const long long INF = (1ll << 60);
 
-#define sym(e) (((e) & 1) ? (e)-1 : (e)+1)
-
 class FlowNetwork
 {   vector<int> last, to, prev;
     vector<long long> c, f;
@@ -31,7 +29,7 @@ class FlowNetwork
             if(level[y] == 1 + level[x] && c[i] > f[i])
             {   long long a = dfs(y, t, level, min(c[i]-f[i], need - can));
                 f[i] += a;
-                f[sym(i)] -= a;
+                f[i^1] -= a;
                 can += a;
             }
         }
